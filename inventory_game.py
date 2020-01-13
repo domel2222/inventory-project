@@ -11,18 +11,18 @@ def display_inventrory(inven):
 
 
 def add_inventory(inven, added_item):
-    dicionarynew = {}
-    for i in added_item:
-        if i in dicionarynew:
-            dicionarynew[i] +=1
-        else:
-            dicionarynew[i] = 1
-    print(dicionarynew)
-    for k, v in dicionarynew.items():
+    # dicionarynew = {}
+    # for i in added_item:
+    #     if i in dicionarynew:
+    #         dicionarynew[i] +=1
+    #     else:
+    #         dicionarynew[i] = 1
+    #print(dicionarynew)
+    for k  in added_item:
         if k in inven:
-            inven[k] += v
+            inven[k] += 1
         else:
-            inven[k] = v
+            inven[k] = 1
     
     
 def print_table(inven):
@@ -33,18 +33,18 @@ def print_table(inven):
         inven= dict(sorted(inven.items(), key=itemgetter(1)))
     elif order == 'a':
         inven= dict(sorted(inven.items(), key=itemgetter(1), reverse=True))
-    else:
-        inven = inven
+    # else:
+    #     inven = inven
     for k ,v in inven.items():
         table.add_row([k, v])
     print(table)
 
 
 def import_inventory(inven,path):
-    pola = []
+    pola = [] # try is file czy istnieje i czy moge go otworzyc
     with open(path,encoding='utf-8') as testCSV:
         plikiCSV = csv.reader(testCSV, delimiter =',')
-        pola = []
+        # pola = []
         pola = next(plikiCSV)
         add_inventory(inven,pola)
 
@@ -54,8 +54,8 @@ def export_inventory(inven):
         writer = csv.writer(exportfile, delimiter=',', quotechar='"')
         lista = []
         for k , v in inven.items():
-            lista.append(k)
-            lista.append(v)
+            for i in range(v+1):
+                lista.append(k)
         # headers = ['item', 'count']
         writer =csv.DictWriter(exportfile, fieldnames=lista)
         writer.writeheader()
